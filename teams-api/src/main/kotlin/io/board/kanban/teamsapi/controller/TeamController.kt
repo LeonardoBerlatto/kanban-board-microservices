@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/teams")
-class TeamController(val service: TeamService,
-                     val mapper: TeamMapper
+class TeamController(
+    val service: TeamService,
+    val mapper: TeamMapper
 ) {
 
     @PostMapping

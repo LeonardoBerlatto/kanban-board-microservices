@@ -1,6 +1,7 @@
 package io.board.kanban.teamsapi.repository
 
 import io.board.kanban.teamsapi.domain.Team
+import io.board.kanban.teamsapi.repository.jpa.JpaTeamRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
