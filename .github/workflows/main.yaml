@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    - '*'
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  project_matrix:
+    strategy:
+      matrix:
+        project:
+            - 'teams'
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Build with Gradle
+        run: ./${{ matrix.project }}/gradlew build -x test
+
+  test:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Run tests
+        run: ./${{ matrix.project }}/gradlew test
