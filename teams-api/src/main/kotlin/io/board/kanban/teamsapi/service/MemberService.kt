@@ -3,6 +3,7 @@ package io.board.kanban.teamsapi.service
 import io.board.kanban.teamsapi.domain.Member
 import io.board.kanban.teamsapi.domain.MemberId
 import io.board.kanban.teamsapi.exception.BadRequestException
+import io.board.kanban.teamsapi.exception.NotFoundException
 import io.board.kanban.teamsapi.mapper.MemberMapper
 import io.board.kanban.teamsapi.repository.MemberRepository
 import io.board.kanban.teamsapi.representation.CreateMemberRequest
@@ -33,6 +34,11 @@ class MemberService(
             userId = userId,
             team = teamService.findById(teamId)
         )
+
+        if (!repository.existsById(id)) {
+            throw NotFoundException("Member does not exist")
+        }
+
         repository.deleteById(id)
     }
 

@@ -4,12 +4,14 @@ import io.board.kanban.teamsapi.domain.Member
 import io.board.kanban.teamsapi.domain.Role
 import io.board.kanban.teamsapi.domain.Team
 import io.board.kanban.teamsapi.exception.BadRequestException
+import io.board.kanban.teamsapi.exception.NotFoundException
 import io.board.kanban.teamsapi.mapper.MemberMapper
 import io.board.kanban.teamsapi.repository.MemberRepository
 import io.board.kanban.teamsapi.representation.CreateMemberRequest
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -37,6 +39,7 @@ class MemberServiceTest {
         every { repository.save(any()) } returns member
         every { roleService.findById(any()) } returns role
         every { teamService.findById(any()) } returns team
+        every { memberMapper.toDomain(any(), any(), any()) } returns member
 
         // Act
         val result = service.create(
@@ -48,7 +51,7 @@ class MemberServiceTest {
         )
 
         // Assert
-        assertEquals(member, result)
+        assertThat(result).isEqualTo(member)
     }
 
     @Test
@@ -65,6 +68,7 @@ class MemberServiceTest {
         every { repository.existsById(any()) } returns true
         every { roleService.findById(any()) } returns role
         every { teamService.findById(any()) } returns team
+        every { memberMapper.toDomain(any(), any(), any()) } returns member
 
         // Act
         val exception = assertThrows(BadRequestException::class.java) {
@@ -77,14 +81,14 @@ class MemberServiceTest {
             )
         }
 
-        // Assert
-        assertEquals("Member already exists", exception.message)
+        // Assert witth assertj
+        assertThat(exception.message).isEqualTo("Member already exists")
     }
 
     @Test
     fun `should remove member when membership exists`() {
         // Arrange
-        val team = Team(UUID.randomUUID(), "Team B", listOf())
+        val team = Team(UUID.randomUUID(), "Team BR", listOf())
         val role = Role(UUID.randomUUID(), "QA")
         val member = Member(
             userId = UUID.randomUUID(),
@@ -100,5 +104,27 @@ class MemberServiceTest {
 
         // Assert
         verify { repository.deleteById(any()) }
+    }
+
+    @Test
+    fun `should throw exception when membership does not exist`() {
+        // Arrange
+        val team = Team(UUID.randomUUID(), "Team BR", listOf())
+        val role = Role(UUID.randomUUID(), "QA")
+        val member = Member(
+            userId = UUID.randomUUID(),
+            team = team,
+            role = role
+        )
+
+        every { teamService.findById(any()) } returns team
+
+        // Act
+        val exception = assertThrows(NotFoundException::class.java) {
+            service.remove(member.userId, member.team.id)
+        }
+
+        // Assert
+        assertThat(exception.message).isEqualTo("Member not found")
     }
 }
