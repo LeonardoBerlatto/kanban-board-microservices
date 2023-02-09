@@ -26,7 +26,8 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Build with Gradle
-        run: ./${{ matrix.project }}/gradlew build -x test
+        run: ./gradlew build -x test
+        working-directory: ${{ matrix.project }}
 
   test:
     needs: [ build ]
@@ -46,4 +47,5 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Run tests
-        run: ./${{ matrix.project }}/gradlew test
+        run: ./gradlew test
+        working-directory: ${{ matrix.project }}
