@@ -6,12 +6,13 @@ import org.springframework.data.domain.Page
 import org.springframework.stereotype.Component
 
 @Component
-class TeamMapper() {
+class TeamMapper(private val memberMapper: MemberMapper) {
 
     fun toResponse(team: Team): TeamResponse {
         return TeamResponse(
             id = team.id,
-            name = team.name
+            name = team.name,
+            members = team.members.map { memberMapper.toResponse(it) }
         )
     }
 

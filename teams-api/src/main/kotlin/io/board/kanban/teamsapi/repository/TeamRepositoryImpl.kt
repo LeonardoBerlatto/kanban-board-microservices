@@ -5,6 +5,7 @@ import io.board.kanban.teamsapi.repository.jpa.JpaTeamRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
+import java.util.UUID
 
 @Repository
 class TeamRepositoryImpl(
@@ -17,5 +18,9 @@ class TeamRepositoryImpl(
 
     override fun save(team: Team): Team {
         return jpaRepository.save(team)
+    }
+
+    override fun findById(id: UUID): Team? {
+        return jpaRepository.findById(id).orElse(null)
     }
 }
