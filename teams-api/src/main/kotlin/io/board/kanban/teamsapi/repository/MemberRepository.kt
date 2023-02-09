@@ -8,4 +8,5 @@ interface MemberRepository {
     fun existsById(id: MemberId): Boolean
     fun save(member: Member): Member
     fun findByTeam(team: Team): List<Member>
+    fun deleteById(id: MemberId)
 }

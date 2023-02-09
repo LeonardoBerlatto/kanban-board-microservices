@@ -12,11 +12,15 @@ class MemberRepositoryImpl(val jpaRepository: JpaMemberRepository) : MemberRepos
         return jpaRepository.existsById(id)
     }
 
+    override fun findByTeam(team: Team): List<Member> {
+        return jpaRepository.findByTeam(team)
+    }
+
     override fun save(member: Member): Member {
         return jpaRepository.save(member)
     }
 
-    override fun findByTeam(team: Team): List<Member> {
-        return jpaRepository.findByTeam(team)
+    override fun deleteById(id: MemberId) {
+        return jpaRepository.deleteById(id)
     }
 }

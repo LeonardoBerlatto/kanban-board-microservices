@@ -9,6 +9,7 @@ import io.board.kanban.teamsapi.repository.MemberRepository
 import io.board.kanban.teamsapi.representation.CreateMemberRequest
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -38,11 +39,13 @@ class MemberServiceTest {
         every { teamService.findById(any()) } returns team
 
         // Act
-        val result = service.create(CreateMemberRequest(
-            userId = member.userId,
-            teamId = member.team.id,
-            roleId = member.role.id
-        ))
+        val result = service.create(
+            CreateMemberRequest(
+                userId = member.userId,
+                teamId = member.team.id,
+                roleId = member.role.id
+            )
+        )
 
         // Assert
         assertEquals(member, result)
@@ -65,15 +68,37 @@ class MemberServiceTest {
 
         // Act
         val exception = assertThrows(BadRequestException::class.java) {
-            service.create(CreateMemberRequest(
-                userId = member.userId,
-                teamId = member.team.id,
-                roleId = member.role.id
-            ))
+            service.create(
+                CreateMemberRequest(
+                    userId = member.userId,
+                    teamId = member.team.id,
+                    roleId = member.role.id
+                )
+            )
         }
 
         // Assert
         assertEquals("Member already exists", exception.message)
     }
 
+    @Test
+    fun `should remove member when membership exists`() {
+        // Arrange
+        val team = Team(UUID.randomUUID(), "Team B", listOf())
+        val role = Role(UUID.randomUUID(), "QA")
+        val member = Member(
+            userId = UUID.randomUUID(),
+            team = team,
+            role = role
+        )
+
+        every { repository.deleteById(any()) } returns Unit
+        every { teamService.findById(any()) } returns team
+
+        // Act
+        service.remove(member.userId, member.team.id)
+
+        // Assert
+        verify { repository.deleteById(any()) }
+    }
 }

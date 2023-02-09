@@ -6,6 +6,7 @@ import io.board.kanban.teamsapi.exception.BadRequestException
 import io.board.kanban.teamsapi.mapper.MemberMapper
 import io.board.kanban.teamsapi.repository.MemberRepository
 import io.board.kanban.teamsapi.representation.CreateMemberRequest
+import java.util.UUID
 
 class MemberService(
     private val repository: MemberRepository,
@@ -20,11 +21,19 @@ class MemberService(
 
         val member = memberMapper.toDomain(request, role, team)
 
-        if (repository.existsById(MemberId(member.userId, member.team))) {
+        if (repository.existsById(MemberId(member.userId, team))) {
             throw BadRequestException("Member already exists")
         }
 
         return repository.save(member)
+    }
+
+    fun remove(userId: UUID, teamId: UUID) {
+        val id = MemberId(
+            userId = userId,
+            team = teamService.findById(teamId)
+        )
+        repository.deleteById(id)
     }
 
 }
