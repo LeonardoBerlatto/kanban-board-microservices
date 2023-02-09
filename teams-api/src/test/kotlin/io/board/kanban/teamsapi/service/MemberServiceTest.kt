@@ -98,6 +98,7 @@ class MemberServiceTest {
 
         every { repository.deleteById(any()) } returns Unit
         every { teamService.findById(any()) } returns team
+        every { repository.existsById(any()) } returns true
 
         // Act
         service.remove(member.userId, member.team.id)
@@ -118,6 +119,7 @@ class MemberServiceTest {
         )
 
         every { teamService.findById(any()) } returns team
+        every { repository.existsById(any()) } returns false
 
         // Act
         val exception = assertThrows(NotFoundException::class.java) {
@@ -125,6 +127,6 @@ class MemberServiceTest {
         }
 
         // Assert
-        assertThat(exception.message).isEqualTo("Member not found")
+        assertThat(exception.message).isEqualTo("Member does not exist")
     }
 }
