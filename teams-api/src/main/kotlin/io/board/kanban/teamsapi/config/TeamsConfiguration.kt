@@ -25,11 +25,11 @@ class TeamsConfiguration {
 
     @Bean
     fun memberService(
+        repository: MemberRepository,
         roleService: RoleService,
         teamService: TeamService,
-        repository: MemberRepository,
         memberMapper: MemberMapper
     ): MemberService {
-        return MemberService(roleService, teamService, repository, memberMapper)
+        return MemberService(repository, roleService, teamService, memberMapper)
     }
 }
