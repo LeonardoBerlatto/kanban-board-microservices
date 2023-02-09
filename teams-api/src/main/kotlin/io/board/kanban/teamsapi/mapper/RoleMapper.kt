@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class RoleMapper {
 
-    private fun toResponse(role: Role): RoleResponse {
+    fun toResponse(role: Role): RoleResponse {
         return RoleResponse(
             id = role.id,
             name = role.name
