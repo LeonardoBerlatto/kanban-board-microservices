@@ -2,19 +2,18 @@ name: CI
 
 on:
   push:
-    - '*'
+    branches:
+        - '*'
   pull_request:
     branches: [ main ]
 
 
 jobs:
-  project_matrix:
+  build:
     strategy:
       matrix:
         project:
-            - 'teams'
-
-  build:
+          - 'teams'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,6 +30,10 @@ jobs:
 
   test:
     needs: [ build ]
+    strategy:
+      matrix:
+        project:
+          - 'teams'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
