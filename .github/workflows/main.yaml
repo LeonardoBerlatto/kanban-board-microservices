@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         project:
-          - 'teams'
+          - 'teams-api'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         project:
-          - 'teams'
+          - 'teams-api'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
