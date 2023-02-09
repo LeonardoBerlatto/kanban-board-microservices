@@ -1,6 +1,6 @@
 package io.board.kanban.teamsapi.service
 
-import io.board.kanban.teamsapi.domain.NotFoundException
+import io.board.kanban.teamsapi.exception.NotFoundException
 import io.board.kanban.teamsapi.domain.Role
 import io.board.kanban.teamsapi.repository.RoleRepository
 import java.util.UUID

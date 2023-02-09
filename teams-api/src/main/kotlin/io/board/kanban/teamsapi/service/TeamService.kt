@@ -1,6 +1,6 @@
 package io.board.kanban.teamsapi.service
 
-import io.board.kanban.teamsapi.domain.NotFoundException
+import io.board.kanban.teamsapi.exception.NotFoundException
 import io.board.kanban.teamsapi.domain.Team
 import io.board.kanban.teamsapi.exception.BadRequestException
 import io.board.kanban.teamsapi.repository.TeamRepository

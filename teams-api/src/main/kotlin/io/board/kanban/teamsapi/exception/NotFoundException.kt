@@ -1,3 +1,3 @@
-package io.board.kanban.teamsapi.domain
+package io.board.kanban.teamsapi.exception
 
 class NotFoundException(message: String) : RuntimeException(message)
