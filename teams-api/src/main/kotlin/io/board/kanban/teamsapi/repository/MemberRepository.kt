@@ -9,4 +9,5 @@ interface MemberRepository {
     fun save(member: Member): Member
     fun findByTeam(team: Team): List<Member>
     fun deleteById(id: MemberId)
+    fun findById(memberId: MemberId): Member?
 }

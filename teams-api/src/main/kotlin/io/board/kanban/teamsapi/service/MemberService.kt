@@ -6,7 +6,7 @@ import io.board.kanban.teamsapi.exception.BadRequestException
 import io.board.kanban.teamsapi.exception.NotFoundException
 import io.board.kanban.teamsapi.mapper.MemberMapper
 import io.board.kanban.teamsapi.repository.MemberRepository
-import io.board.kanban.teamsapi.representation.CreateMemberRequest
+import io.board.kanban.teamsapi.representation.MemberRequest
 import java.util.UUID
 
 class MemberService(
@@ -16,7 +16,7 @@ class MemberService(
     private val memberMapper: MemberMapper
 ) {
 
-    fun create(request: CreateMemberRequest): Member {
+    fun create(request: MemberRequest): Member {
         val role = roleService.findById(request.roleId)
         val team = teamService.findById(request.teamId)
 
@@ -27,6 +27,17 @@ class MemberService(
         }
 
         return repository.save(member)
+    }
+
+    fun update(request: MemberRequest): Member {
+        val team = teamService.findById(request.teamId)
+        val existingMember = repository.findById(MemberId(request.userId, team))
+            ?: throw NotFoundException("Member does not exist")
+
+        val role = roleService.findById(request.roleId)
+        existingMember.role = role
+
+        return repository.save(existingMember)
     }
 
     fun remove(userId: UUID, teamId: UUID) {

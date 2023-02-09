@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class MemberRepositoryImpl(val jpaRepository: JpaMemberRepository) : MemberRepository {
+    override fun findById(memberId: MemberId): Member? {
+        return jpaRepository.findById(memberId).orElse(null)
+    }
+
     override fun existsById(id: MemberId): Boolean {
         return jpaRepository.existsById(id)
     }

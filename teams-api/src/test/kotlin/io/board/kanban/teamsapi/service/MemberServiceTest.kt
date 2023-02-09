@@ -7,9 +7,10 @@ import io.board.kanban.teamsapi.exception.BadRequestException
 import io.board.kanban.teamsapi.exception.NotFoundException
 import io.board.kanban.teamsapi.mapper.MemberMapper
 import io.board.kanban.teamsapi.repository.MemberRepository
-import io.board.kanban.teamsapi.representation.CreateMemberRequest
+import io.board.kanban.teamsapi.representation.MemberRequest
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -23,6 +24,8 @@ class MemberServiceTest {
     private val teamService = mockk<TeamService>()
     private val memberMapper = mockk<MemberMapper>()
     private val service = MemberService(repository, roleService, teamService, memberMapper)
+
+    private val memberSlot = slot<Member>()
 
     @Test
     fun `should create member when membership does not exist`() {
@@ -43,7 +46,7 @@ class MemberServiceTest {
 
         // Act
         val result = service.create(
-            CreateMemberRequest(
+            MemberRequest(
                 userId = member.userId,
                 teamId = member.team.id,
                 roleId = member.role.id
@@ -73,7 +76,7 @@ class MemberServiceTest {
         // Act
         val exception = assertThrows(BadRequestException::class.java) {
             service.create(
-                CreateMemberRequest(
+                MemberRequest(
                     userId = member.userId,
                     teamId = member.team.id,
                     roleId = member.role.id
@@ -81,8 +84,67 @@ class MemberServiceTest {
             )
         }
 
-        // Assert witth assertj
+        // Assert
         assertThat(exception.message).isEqualTo("Member already exists")
+    }
+
+    @Test
+    fun `should update member when member exists`() {
+        // Arrange
+        val team = Team(UUID.randomUUID(), "Team 1", listOf())
+        val role = Role(UUID.randomUUID(), "Role 1")
+        val existingMember = Member(
+            userId = UUID.randomUUID(),
+            team = team,
+            role = role
+        )
+
+        val request = MemberRequest(
+            userId = existingMember.userId,
+            teamId = existingMember.team.id,
+            roleId = UUID.randomUUID()
+        )
+
+        every { teamService.findById(existingMember.team.id) } returns team
+        every { repository.findById(any()) } returns existingMember
+        every { roleService.findById(request.roleId) } returns role
+        every { repository.save(capture(memberSlot)) } returns existingMember
+
+        // Act
+        val result = service.update(request)
+
+        // Assert
+        assertThat(result.role).isEqualTo(memberSlot.captured.role)
+    }
+
+    @Test
+    fun `should throw exception when member does not exist`() {
+        // Arrange
+        val team = Team(UUID.randomUUID(), "Team 1", listOf())
+        val role = Role(UUID.randomUUID(), "Role 1")
+        val existingMember = Member(
+            userId = UUID.randomUUID(),
+            team = team,
+            role = role
+        )
+
+        val request = MemberRequest(
+            userId = existingMember.userId,
+            teamId = existingMember.team.id,
+            roleId = UUID.randomUUID()
+        )
+
+        every { teamService.findById(existingMember.team.id) } returns team
+        every { repository.findById(any()) } returns null
+        every { roleService.findById(request.roleId) } returns role
+
+        // Act
+        val exception = assertThrows(NotFoundException::class.java) {
+            service.update(request)
+        }
+
+        // Assert
+        assertThat(exception.message).isEqualTo("Member does not exist")
     }
 
     @Test

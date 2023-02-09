@@ -20,5 +20,5 @@ class Member(
     val team: Team,
     @ManyToOne
     @JoinColumn(name = "role_id")
-    val role: Role
+    var role: Role
 )

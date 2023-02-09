@@ -3,7 +3,7 @@ package io.board.kanban.teamsapi.representation
 import java.util.UUID
 
 
-class CreateMemberRequest(
+class MemberRequest(
     val userId: UUID,
     val teamId: UUID,
     val roleId: UUID
