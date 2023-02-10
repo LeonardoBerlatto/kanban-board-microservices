@@ -13,11 +13,10 @@ data class IssueRequest(
     val title: String,
     @NotBlank(message = "Description is required")
     val description: String,
-    @NotNull(message = "Assignee is required")
-    val assigneeId: UUID,
     @NotNull(message = "Reporter is required")
     val reporterId: UUID,
     var status: IssueStatus?,
+    val assigneeId: UUID?,
     var priority: IssuePriority?,
     var type: IssueType?,
     var teamId: UUID?,

@@ -8,7 +8,7 @@ CREATE TABLE issues
     description TEXT        NOT NULL,
     priority    VARCHAR(10) NOT NULL,
     "type"      VARCHAR(10) NOT NULL,
-    assignee_id UUID        NOT NULL,
+    assignee_id UUID        NULL,
     reporter_id UUID        NOT NULL,
     team_id     UUID        NULL,
     created_at  TIMESTAMP   NOT NULL

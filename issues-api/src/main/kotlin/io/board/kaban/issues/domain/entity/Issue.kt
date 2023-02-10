@@ -16,17 +16,17 @@ import java.util.UUID
 data class Issue (
     @Id
     val id: UUID = UUID.randomUUID(),
-    val title: String,
-    val description: String,
-    val assigneeId: UUID,
-    val reporterId: UUID,
+    var title: String,
+    var description: String,
+    var assigneeId: UUID?,
+    var reporterId: UUID,
     @Enumerated(EnumType.STRING)
-    val status: IssueStatus,
+    var status: IssueStatus = IssueStatus.OPEN,
     @Enumerated(EnumType.STRING)
-    val priority: IssuePriority,
+    var priority: IssuePriority,
     @Enumerated(EnumType.STRING)
-    val type: IssueType,
-    val teamId: UUID?,
+    var type: IssueType,
+    var teamId: UUID?,
     val createdAt: LocalDateTime,
     var active: Boolean = true
 )

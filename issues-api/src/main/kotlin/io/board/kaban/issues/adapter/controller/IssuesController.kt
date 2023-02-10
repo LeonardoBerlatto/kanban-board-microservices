@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -31,9 +32,16 @@ class IssuesController(
             .body(response)
     }
 
+    @PutMapping("/{id}")
+    fun update(@PathVariable id: UUID, @Valid @RequestBody request: IssueRequest): ResponseEntity<IssueResponse> {
+        val response = mapper.toResponse(service.update(id, request))
+
+        return ResponseEntity.ok(response)
+    }
+
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: UUID): ResponseEntity<Void> {
-        service.markAsDeleted(id)
+        service.inactivate(id)
         return ResponseEntity
             .noContent()
             .build()

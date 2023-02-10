@@ -20,16 +20,33 @@ class IssueService(
         request.priority = request.priority ?: IssuePriority.MEDIUM
         request.type = request.type ?: IssueType.TASK
         request.createdDate = request.createdDate ?: LocalDateTime.now()
-        request.status = request.status ?: IssueStatus.OPEN
+        request.status = IssueStatus.OPEN
 
         val issue = mapper.toDomain(request)
         return repository.save(issue)
     }
 
-    fun markAsDeleted(id: UUID) {
-        val issue = repository.findById(id).orElseThrow { NotFoundException("Issue not found") }
+    fun update(id: UUID, request: IssueRequest): Issue {
+        val issue = findIssueById(id)
+        issue.title = request.title
+        issue.description = request.description
+        issue.assigneeId = request.assigneeId
+        issue.reporterId = request.reporterId
+        issue.status = request.status ?: IssueStatus.OPEN
+        issue.priority = request.priority ?: IssuePriority.MEDIUM
+        issue.type = request.type ?: IssueType.TASK
+        issue.teamId = request.teamId
+
+        return repository.save(issue)
+    }
+
+    fun inactivate(id: UUID) {
+        val issue = findIssueById(id)
         issue.active = false
         repository.save(issue)
     }
+
+    private fun findIssueById(id: UUID): Issue =
+        repository.findById(id).orElseThrow { NotFoundException("Issue not found") }
 
 }

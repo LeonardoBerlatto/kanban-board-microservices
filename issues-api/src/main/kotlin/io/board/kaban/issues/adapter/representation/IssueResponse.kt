@@ -11,11 +11,11 @@ data class IssueResponse(
     val id: UUID,
     val title: String,
     val description: String,
-    val assigneeId: UUID,
     val reporterId: UUID,
     val status: IssueStatus,
     val priority: IssuePriority,
     val type: IssueType,
+    val assigneeId: UUID?,
     val teamId: UUID?,
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     val createdAt: LocalDateTime
