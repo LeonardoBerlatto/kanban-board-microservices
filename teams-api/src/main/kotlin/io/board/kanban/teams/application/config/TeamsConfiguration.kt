@@ -10,6 +10,7 @@ import io.board.kanban.teams.domain.service.TeamService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
+
 @Configuration
 class TeamsConfiguration {
 
