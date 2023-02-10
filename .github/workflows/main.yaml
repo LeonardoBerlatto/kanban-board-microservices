@@ -14,6 +14,7 @@ jobs:
       matrix:
         project:
           - 'teams-api'
+          - 'issues-api'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -36,6 +37,7 @@ jobs:
       matrix:
         project:
           - 'teams-api'
+          - 'issues-api'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
