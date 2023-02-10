@@ -12,6 +12,19 @@ services:
       - /usr/local/var/postgres/teams:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+  teams-redis-cache:
+    image: redis:7.0.3
+    container_name: teams-redis-cache
+    restart: always
+    volumes:
+      - /usr/local/var/redis/teams-cache:/data
+    ports:
+      - "6379:6379"
+    environment: 
+      - REDIS_REPLICATION_MODE=master
+      - REDIS_REPLICATION_MASTER_HOST=teams-redis-cache
+      - REDIS_REPLICATION_MASTER_PORT=6379
+      - REDIS_REPLICATION_PASSWORD=redis
   issues-db:
     image: postgres:15.1
     container_name: issues-db
