@@ -14,3 +14,4 @@ spring:
     locations: classpath:db/migration
     baseline-version: 0
     baseline-description: Initial schema
+    baseline-on-migrate: true

@@ -27,5 +27,6 @@ data class Issue (
     @Enumerated(EnumType.STRING)
     val type: IssueType,
     val teamId: UUID?,
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime,
+    var active: Boolean = true
 )
