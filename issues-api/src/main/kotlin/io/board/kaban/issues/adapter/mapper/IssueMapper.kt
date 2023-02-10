@@ -31,7 +31,8 @@ class IssueMapper {
             status = domain.status,
             priority = domain.priority,
             type = domain.type,
-            teamId = domain.teamId
+            teamId = domain.teamId,
+            createdAt = domain.createdAt
         )
     }
 
