@@ -27,6 +27,7 @@ dependencies {
 	// database
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("org.postgresql:postgresql")
+	implementation("org.flywaydb:flyway-core")
 	// logging
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
 	// utils

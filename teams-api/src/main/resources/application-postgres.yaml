@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/teams
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -9,3 +9,9 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
+
+  flyway:
+    locations: classpath:db/migration
+    baseline-version: 0
+    baseline-description: Initial schema
+    baseline-on-migrate: true
