@@ -1,8 +1,9 @@
 package io.board.kanban.teams.service
 
-import io.board.kanban.teams.exception.NotFoundException
-import io.board.kanban.teams.domain.Role
-import io.board.kanban.teams.repository.RoleRepository
+import io.board.kanban.teams.domain.exception.NotFoundException
+import io.board.kanban.teams.domain.entity.Role
+import io.board.kanban.teams.domain.service.RoleService
+import io.board.kanban.teams.domain.repository.RoleRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat

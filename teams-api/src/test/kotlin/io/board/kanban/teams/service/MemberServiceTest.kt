@@ -1,13 +1,16 @@
 package io.board.kanban.teams.service
 
-import io.board.kanban.teams.domain.Member
-import io.board.kanban.teams.domain.Role
-import io.board.kanban.teams.domain.Team
-import io.board.kanban.teams.exception.BadRequestException
-import io.board.kanban.teams.exception.NotFoundException
-import io.board.kanban.teams.mapper.MemberMapper
-import io.board.kanban.teams.repository.MemberRepository
-import io.board.kanban.teams.representation.MemberRequest
+import io.board.kanban.teams.domain.entity.Member
+import io.board.kanban.teams.domain.entity.Role
+import io.board.kanban.teams.domain.entity.Team
+import io.board.kanban.teams.domain.exception.BadRequestException
+import io.board.kanban.teams.domain.exception.NotFoundException
+import io.board.kanban.teams.adapter.mapper.MemberMapper
+import io.board.kanban.teams.domain.repository.MemberRepository
+import io.board.kanban.teams.adapter.representation.MemberRequest
+import io.board.kanban.teams.domain.service.MemberService
+import io.board.kanban.teams.domain.service.RoleService
+import io.board.kanban.teams.domain.service.TeamService
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot

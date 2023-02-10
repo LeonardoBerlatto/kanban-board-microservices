@@ -1,10 +1,11 @@
 package io.board.kanban.teams.service
 
-import io.board.kanban.teams.exception.NotFoundException
-import io.board.kanban.teams.domain.Team
-import io.board.kanban.teams.exception.BadRequestException
-import io.board.kanban.teams.repository.TeamRepository
-import io.board.kanban.teams.representation.CreateTeamRequest
+import io.board.kanban.teams.domain.exception.NotFoundException
+import io.board.kanban.teams.domain.entity.Team
+import io.board.kanban.teams.domain.exception.BadRequestException
+import io.board.kanban.teams.domain.repository.TeamRepository
+import io.board.kanban.teams.adapter.representation.CreateTeamRequest
+import io.board.kanban.teams.domain.service.TeamService
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
