@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  teams-db:
+    image: postgres:15.1
+    container_name: teams-db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: teams
+    volumes:
+      - /usr/local/var/postgres/teams:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  issues-db:
+    image: postgres:15.1
+    container_name: issues-db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: issues
+    volumes:
+      - /usr/local/var/postgres/issues:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
