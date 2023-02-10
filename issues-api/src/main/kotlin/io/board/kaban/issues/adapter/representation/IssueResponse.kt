@@ -1,5 +1,8 @@
 package io.board.kaban.issues.adapter.representation
 
+import io.board.kaban.issues.domain.vo.issue.IssuePriority
+import io.board.kaban.issues.domain.vo.issue.IssueStatus
+import io.board.kaban.issues.domain.vo.issue.IssueType
 import java.util.UUID
 
 data class IssueResponse(
@@ -8,7 +11,8 @@ data class IssueResponse(
     val description: String,
     val assigneeId: UUID,
     val reporterId: UUID,
-    val priority: String,
-    val type: String,
+    val status: IssueStatus,
+    val priority: IssuePriority,
+    val type: IssueType,
     val teamId: UUID?
 )

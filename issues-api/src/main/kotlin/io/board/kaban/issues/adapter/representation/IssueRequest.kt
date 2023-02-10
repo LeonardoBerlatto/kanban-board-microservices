@@ -1,6 +1,7 @@
 package io.board.kaban.issues.adapter.representation
 
 import io.board.kaban.issues.domain.vo.issue.IssuePriority
+import io.board.kaban.issues.domain.vo.issue.IssueStatus
 import io.board.kaban.issues.domain.vo.issue.IssueType
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
@@ -16,6 +17,7 @@ data class IssueRequest(
     val assigneeId: UUID,
     @NotNull(message = "Reporter is required")
     val reporterId: UUID,
+    var status: IssueStatus?,
     var priority: IssuePriority?,
     var type: IssueType?,
     var teamId: UUID?,

@@ -1,6 +1,7 @@
 package io.board.kaban.issues.domain.entity
 
 import io.board.kaban.issues.domain.vo.issue.IssuePriority
+import io.board.kaban.issues.domain.vo.issue.IssueStatus
 import io.board.kaban.issues.domain.vo.issue.IssueType
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -19,6 +20,8 @@ data class Issue (
     val description: String,
     val assigneeId: UUID,
     val reporterId: UUID,
+    @Enumerated(EnumType.STRING)
+    val status: IssueStatus,
     @Enumerated(EnumType.STRING)
     val priority: IssuePriority,
     @Enumerated(EnumType.STRING)

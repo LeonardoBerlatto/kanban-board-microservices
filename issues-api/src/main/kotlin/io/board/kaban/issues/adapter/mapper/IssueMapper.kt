@@ -13,6 +13,7 @@ class IssueMapper {
             description = request.description,
             assigneeId = request.assigneeId,
             reporterId = request.reporterId,
+            status = request.status!!,
             type = request.type!!,
             priority = request.priority!!,
             teamId = request.teamId,
@@ -27,8 +28,9 @@ class IssueMapper {
             description = domain.description,
             assigneeId = domain.assigneeId,
             reporterId = domain.reporterId,
-            priority = domain.priority.name,
-            type = domain.type.name,
+            status = domain.status,
+            priority = domain.priority,
+            type = domain.type,
             teamId = domain.teamId
         )
     }
