@@ -1,0 +1,13 @@
+spring:
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: boards
+      username: boards
+      password: boards
