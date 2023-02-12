@@ -25,6 +25,18 @@ services:
       - REDIS_REPLICATION_MASTER_HOST=teams-redis-cache
       - REDIS_REPLICATION_MASTER_PORT=6379
       - REDIS_REPLICATION_PASSWORD=redis
+  
+  boards-db:
+    image: mongo:6.0
+    container_name: boards-db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+      - MONGO_INITDB_DATABASE=boards
+
   issues-db:
     image: postgres:15.1
     container_name: issues-db
