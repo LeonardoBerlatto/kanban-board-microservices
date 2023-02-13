@@ -1,7 +1,7 @@
 spring:
   rabbitmq:
-    username: guest
-    password: guest
+    username: rabbitmq
+    password: rabbitmq
     host: localhost
     port: 5672
   data:
@@ -9,5 +9,6 @@ spring:
       host: localhost
       port: 27017
       database: boards
-      username: boards
-      password: boards
+      username: root
+      password: mongo
+      authentication-database: admin

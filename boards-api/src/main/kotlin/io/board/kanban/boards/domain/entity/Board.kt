@@ -1,11 +1,9 @@
 package io.board.kanban.boards.domain.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
+import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.util.UUID
 
-@Entity
 @Document(collection = "boards")
 data class Board(
     @Id
