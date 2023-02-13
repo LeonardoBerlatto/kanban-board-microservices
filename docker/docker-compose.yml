@@ -32,10 +32,28 @@ services:
     restart: always
     ports:
       - "27017:27017"
+    volumes:
+      - /usr/local/var/mongo/boards:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=mongo
       - MONGO_INITDB_DATABASE=boards
+
+  boards-rabbitmq:
+    image: rabbitmq:3.9.7-management-alpine
+    container_name: boards-rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - /usr/local/var/rabbitmq/boards:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbitmq
+      - RABBITMQ_DEFAULT_PASS=rabbitmq
+      - RABBITMQ_HIPE_COMPILE=1
+      - RABBITMQ_USE_LONGNAME=true
+      - RABBITMQ_NODENAME=rabbit@boards-rabbitmq
 
   issues-db:
     image: postgres:15.1
