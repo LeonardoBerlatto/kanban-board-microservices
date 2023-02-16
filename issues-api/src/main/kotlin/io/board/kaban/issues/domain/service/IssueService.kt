@@ -27,7 +27,7 @@ class IssueService(
     }
 
     fun update(id: UUID, request: IssueRequest): Issue {
-        val issue = findIssueById(id)
+        val issue = findById(id)
         issue.title = request.title
         issue.description = request.description
         issue.assigneeId = request.assigneeId
@@ -41,12 +41,14 @@ class IssueService(
     }
 
     fun inactivate(id: UUID) {
-        val issue = findIssueById(id)
+        val issue = findById(id)
         issue.active = false
         repository.save(issue)
     }
 
-    private fun findIssueById(id: UUID): Issue =
-        repository.findById(id).orElseThrow { NotFoundException("Issue not found") }
+    fun findById(id: UUID): Issue =
+        repository
+            .findById(id)
+            .orElseThrow { NotFoundException("Issue not found") }
 
 }
