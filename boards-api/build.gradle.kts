@@ -31,6 +31,7 @@ dependencies {
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
 	// utils
 	implementation("org.apache.commons:commons-lang3:3.12.0")
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.1")
 	// tests
 	testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 	testImplementation("io.mockk:mockk:1.13.2")

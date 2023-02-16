@@ -10,6 +10,6 @@ data class Board(
     val id: UUID = UUID.randomUUID(),
     val name: String,
     val description: String,
-    val teamId: String,
+    val teamId: UUID,
     val issues: List<UUID>
 )
