@@ -32,6 +32,7 @@ dependencies {
 	// utils
 	implementation("org.apache.commons:commons-lang3:3.12.0")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.1")
+	implementation("io.github.resilience4j:resilience4j-circuitbreaker:2.0.2")
 	// tests
 	testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 	testImplementation("io.mockk:mockk:1.13.2")
