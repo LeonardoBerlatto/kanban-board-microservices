@@ -8,7 +8,6 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: validate
-    show-sql: true
 
   flyway:
     locations: classpath:db/migration
