@@ -11,6 +11,12 @@ class BoardService(
     private val issueService: IssueService
 ) {
 
+    fun findById(id: UUID) =
+        repository
+            .findById(id)
+            .orElseThrow { NotFoundException("Board not found") }
+
+
     fun create(board: Board): Board {
         if (!teamService.existById(board.teamId)) {
             throw NotFoundException("Team with id ${board.teamId} not found")
