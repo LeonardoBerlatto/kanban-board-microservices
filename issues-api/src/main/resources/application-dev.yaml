@@ -9,6 +9,16 @@ spring:
     hibernate:
       ddl-auto: validate
 
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      host: localhost
+      port: 6379
+      database: teams-redis-cache
+      password: redis
+      timeout: 10000
+
   flyway:
     locations: classpath:db/migration
     baseline-version: 0
