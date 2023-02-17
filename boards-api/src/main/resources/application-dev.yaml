@@ -12,3 +12,13 @@ spring:
       username: root
       password: mongo
       authentication-database: admin
+      uuid-representation: standard
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+api:
+  team:
+    url: http://localhost:8080/api/teams
+  issue:
+    url: http://localhost:8081/api/issues

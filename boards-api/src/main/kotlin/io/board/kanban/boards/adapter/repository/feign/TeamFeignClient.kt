@@ -9,7 +9,7 @@ import java.util.UUID
 @FeignClient(name = "team-service", url = "\${api.team.url}")
 interface TeamFeignClient {
 
-    @GetMapping("/teams/{id}")
+    @GetMapping("/{id}")
     fun findById(@PathVariable id: UUID): TeamResponse?
 
 }

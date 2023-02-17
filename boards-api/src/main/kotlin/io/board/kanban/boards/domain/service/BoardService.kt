@@ -22,7 +22,7 @@ class BoardService(
     }
 
     private fun validateIssues(issues: List<UUID>) {
-        issues.first { !issueService.existById(it) }.let {
+        issues.firstOrNull { !issueService.existById(it) }?.let {
             throw NotFoundException("Issue with id $it not found")
         }
     }

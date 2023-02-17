@@ -25,12 +25,6 @@ class TeamController(
     val mapper: TeamMapper
 ) {
 
-    @GetMapping("/{id}")
-    fun getById(@PathVariable id: UUID): TeamResponse {
-        val team = service.findById(id)
-        return mapper.toResponse(team)
-    }
-
     @PostMapping
     fun create(@RequestBody request: CreateTeamRequest): ResponseEntity<TeamResponse> {
         val team = service.create(request)
@@ -40,8 +34,14 @@ class TeamController(
     @GetMapping
     fun getByName(
         @RequestParam name: String
-    ): ResponseEntity<Page<TeamResponse>> {
+    ): Page<TeamResponse> {
         val teams = service.findTeamByName(name, Pageable.unpaged())
-        return ResponseEntity(mapper.toResponse(teams), HttpStatus.CREATED)
+        return mapper.toResponse(teams)
+    }
+
+    @GetMapping("/{id}")
+    fun getById(@PathVariable id: UUID): TeamResponse {
+        val team = service.findById(id)
+        return mapper.toResponse(team)
     }
 }

@@ -15,6 +15,7 @@ class RoleRepositoryImpl(private val jpaRoleRepository: JpaRoleRepository) : Rol
         return jpaRoleRepository.findAll()
     }
 
+    @Cacheable("roles", key = "#root.methodName - #roleId", unless = "#result == null")
     override fun findById(roleId: UUID): Role? {
         return jpaRoleRepository.findById(roleId).orElse(null)
     }
