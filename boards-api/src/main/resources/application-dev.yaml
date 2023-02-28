@@ -13,10 +13,6 @@ spring:
       password: mongo
       authentication-database: admin
       uuid-representation: standard
-  cloud:
-    openfeign:
-      circuitbreaker:
-        enabled: true
 
   cache:
     type: redis

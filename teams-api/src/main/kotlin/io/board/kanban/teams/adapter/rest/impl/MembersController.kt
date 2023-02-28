@@ -1,8 +1,9 @@
-package io.board.kanban.teams.adapter.controller
+package io.board.kanban.teams.adapter.rest.impl
 
 import io.board.kanban.teams.adapter.mapper.MemberMapper
 import io.board.kanban.teams.adapter.representation.MemberRequest
 import io.board.kanban.teams.adapter.representation.MemberResponse
+import io.board.kanban.teams.adapter.rest.MembersApi
 import io.board.kanban.teams.domain.service.MemberService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -17,10 +18,13 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("/members")
-class MemberController(val memberService: MemberService, val mapper: MemberMapper) {
+class MembersController(
+    val memberService: MemberService,
+    val mapper: MemberMapper
+): MembersApi {
 
     @PostMapping
-    fun create(@RequestBody request: MemberRequest): ResponseEntity<MemberResponse> {
+    override fun create(@RequestBody request: MemberRequest): ResponseEntity<MemberResponse> {
         val response = mapper.toResponse(memberService.create(request))
 
         return ResponseEntity
@@ -29,7 +33,7 @@ class MemberController(val memberService: MemberService, val mapper: MemberMappe
     }
 
     @PutMapping
-    fun update(@RequestBody request: MemberRequest): ResponseEntity<MemberResponse> {
+    override fun update(@RequestBody request: MemberRequest): ResponseEntity<MemberResponse> {
         val response = mapper.toResponse(memberService.update(request))
 
         return ResponseEntity.ok(response)
@@ -37,7 +41,7 @@ class MemberController(val memberService: MemberService, val mapper: MemberMappe
 
 
     @DeleteMapping("/user/{userId}/team/{teamId}")
-    fun remove(@PathVariable userId: UUID, @PathVariable teamId: UUID): ResponseEntity<Void> {
+    override fun remove(@PathVariable userId: UUID, @PathVariable teamId: UUID): ResponseEntity<Void> {
         memberService.remove(userId, teamId)
         return ResponseEntity
             .noContent()

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class BoardsConfig {
+class BoardsConfiguration {
 
     @Bean
     fun teamService(repository: TeamRepository) = TeamService(repository)

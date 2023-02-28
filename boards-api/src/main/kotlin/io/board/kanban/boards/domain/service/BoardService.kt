@@ -11,7 +11,7 @@ class BoardService(
     private val issueService: IssueService
 ) {
 
-    fun findById(id: UUID) =
+    fun findById(id: UUID): Board =
         repository
             .findById(id)
             .orElseThrow { NotFoundException("Board not found") }

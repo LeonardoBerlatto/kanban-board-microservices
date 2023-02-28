@@ -1,8 +1,9 @@
-package io.board.kanban.teams.adapter.controller
+package io.board.kanban.teams.adapter.rest.impl
 
 import io.board.kanban.teams.adapter.mapper.TeamMapper
 import io.board.kanban.teams.adapter.representation.CreateTeamRequest
 import io.board.kanban.teams.adapter.representation.TeamResponse
+import io.board.kanban.teams.adapter.rest.TeamsApi
 import io.board.kanban.teams.domain.service.TeamService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -20,28 +21,29 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("/teams")
-class TeamController(
+class TeamsController(
     val service: TeamService,
     val mapper: TeamMapper
-) {
+): TeamsApi {
 
-    @PostMapping
-    fun create(@RequestBody request: CreateTeamRequest): ResponseEntity<TeamResponse> {
-        val team = service.create(request)
-        return ResponseEntity(mapper.toResponse(team), HttpStatus.CREATED)
+    @GetMapping("/{id}")
+    override fun getById(@PathVariable id: UUID): TeamResponse {
+        val team = service.findById(id)
+        return mapper.toResponse(team)
     }
 
     @GetMapping
-    fun getByName(
+    override fun getByName(
         @RequestParam name: String
     ): Page<TeamResponse> {
         val teams = service.findTeamByName(name, Pageable.unpaged())
         return mapper.toResponse(teams)
     }
 
-    @GetMapping("/{id}")
-    fun getById(@PathVariable id: UUID): TeamResponse {
-        val team = service.findById(id)
-        return mapper.toResponse(team)
+    @PostMapping
+    override fun create(@RequestBody request: CreateTeamRequest): ResponseEntity<TeamResponse> {
+        val team = service.create(request)
+        return ResponseEntity(mapper.toResponse(team), HttpStatus.CREATED)
     }
+
 }
