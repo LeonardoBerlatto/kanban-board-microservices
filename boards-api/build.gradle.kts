@@ -28,7 +28,6 @@ dependencies {
 	implementation("org.springframework.data:spring-data-redis:3.0.3")
 	// database
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-	implementation("org.flywaydb:flyway-core")
 	// logging
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
 	// utils
