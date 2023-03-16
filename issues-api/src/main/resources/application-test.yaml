@@ -1,3 +1,7 @@
 spring:
   flyway:
     enabled: false
+  rabbitmq:
+    listener:
+      direct:
+        auto-startup: false

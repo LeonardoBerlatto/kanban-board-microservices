@@ -183,7 +183,7 @@ class IssueServiceTest {
             val issueId = UUID.randomUUID()
 
             every { repository.findById(issueId) } returns Optional.of(aIssue(issueId))
-            every { repository.save(capture(issueSlot)) } returns aIssue(issueId)
+            every { repository.delete(capture(issueSlot)) } returns Unit
 
             // Act
             service.inactivate(issueId)
