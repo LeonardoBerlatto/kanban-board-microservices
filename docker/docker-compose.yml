@@ -67,3 +67,44 @@ services:
       - /usr/local/var/postgres/issues:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+
+  teams-api:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      args:
+        - SERVICE_NAME=teams-api
+    container_name: teams-api
+    restart: always
+    ports:
+      - '8080:8080'
+    depends_on:
+      - teams-db
+      - teams-redis-cache
+
+  issues-api:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      args:
+        - SERVICE_NAME=issues-api
+    container_name: issues-api
+    restart: always
+    ports:
+      - '8081:8080'
+    depends_on:
+      - issues-db
+
+  boards-api:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      args:
+        - SERVICE_NAME=boards-api
+    container_name: boards-api
+    restart: always
+    ports:
+      - '8082:8080'
+    depends_on:
+      - boards-db
+      - boards-rabbitmq
