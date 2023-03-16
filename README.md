@@ -1,6 +1,6 @@
 # kanban-board-microservices
 
-Project used to implement a microservice architecture using Kotlin and Spring Boot 
+Project used to mimic [Jira](https://www.atlassian.com/br/software/jira) in a microservice architecture using Kotlin and Spring Boot 
 
 ## Services
 
