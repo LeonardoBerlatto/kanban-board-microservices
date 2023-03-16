@@ -26,3 +26,9 @@ management:
   endpoint:
     health:
       show-details: always
+
+api:
+  teams:
+    url: ${TEAMS_API_HOST}/api/teams
+  issues:
+    url: ${ISSUES_API_HOST}/api/issues

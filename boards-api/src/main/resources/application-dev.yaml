@@ -24,7 +24,7 @@ spring:
       password: redis
       timeout: 10000
 api:
-  team:
+  teams:
     url: http://localhost:8080/api/teams
-  issue:
+  issues:
     url: http://localhost:8081/api/issues
