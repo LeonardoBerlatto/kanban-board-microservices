@@ -48,3 +48,6 @@ jobs:
         uses: ./.github/workflows/composite/tests
         with:
           project: ${{ matrix.project }}
+        env:
+          TEAMS_API_HOST: ${{ secrets.TEAMS_API_HOST }}
+          ISSUES_API_HOST: ${{ secrets.ISSUES_API_HOST }}
