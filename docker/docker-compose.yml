@@ -12,6 +12,7 @@ services:
       - /usr/local/var/postgres/teams:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
   teams-redis-cache:
     image: redis:7.0.3
     container_name: teams-redis-cache
@@ -55,6 +56,20 @@ services:
       - RABBITMQ_USE_LONGNAME=true
       - RABBITMQ_NODENAME=rabbit@boards-rabbitmq
 
+  boards-redis-cache:
+    image: redis:7.0.3
+    container_name: boards-redis-cache
+    restart: always
+    volumes:
+      - /usr/local/var/redis/boards-cache:/data
+    ports:
+      - "6380:6379"
+    environment: 
+      - REDIS_REPLICATION_MODE=master
+      - REDIS_REPLICATION_MASTER_HOST=boards-redis-cache
+      - REDIS_REPLICATION_MASTER_PORT=6379
+      - REDIS_REPLICATION_PASSWORD=redis
+
   issues-db:
     image: postgres:15.1
     container_name: issues-db
@@ -67,6 +82,20 @@ services:
       - /usr/local/var/postgres/issues:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+
+  issues-redis-cache:
+    image: redis:7.0.3
+    container_name: issues-redis-cache
+    restart: always
+    volumes:
+      - /usr/local/var/redis/issues-cache:/data
+    ports:
+      - "6381:6379"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+      - REDIS_REPLICATION_MASTER_HOST=issues-redis-cache
+      - REDIS_REPLICATION_MASTER_PORT=6379
+      - REDIS_REPLICATION_PASSWORD=redis
 
   teams-api:
     build:

@@ -19,8 +19,8 @@ spring:
     redis:
       time-to-live: 3600000
       host: localhost
-      port: 6379
-      database: teams-redis-cache
+      port: 6380
+      database: boards-redis-cache
       password: redis
       timeout: 10000
 api:
