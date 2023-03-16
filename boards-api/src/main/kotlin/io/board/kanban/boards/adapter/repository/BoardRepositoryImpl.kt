@@ -22,6 +22,7 @@ class BoardRepositoryImpl(private val mongoRepository: MongoBoardRepository) : B
         return mongoRepository.save(board)
     }
 
+    @Cacheable("boards", key = "#methodName", unless = "#result == null")
     override fun findAll(): List<Board> {
         return mongoRepository.findAll()
     }
