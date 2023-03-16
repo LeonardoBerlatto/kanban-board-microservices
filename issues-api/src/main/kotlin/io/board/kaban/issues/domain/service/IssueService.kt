@@ -42,6 +42,7 @@ class IssueService(
 
     fun inactivate(id: UUID) {
         val issue = findById(id)
+        issue.active = false
         repository.delete(issue)
     }
 

@@ -7,4 +7,5 @@ import java.util.UUID
 interface BoardRepository {
     fun findById(id: UUID): Optional<Board>
     fun save(board: Board): Board
+    fun findAll(): List<Board>
 }

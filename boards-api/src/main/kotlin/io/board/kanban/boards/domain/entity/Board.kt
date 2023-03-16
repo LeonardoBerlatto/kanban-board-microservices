@@ -11,5 +11,5 @@ data class Board(
     val name: String,
     val description: String,
     val teamId: UUID,
-    val issues: List<UUID>
+    var issues: List<UUID>
 )

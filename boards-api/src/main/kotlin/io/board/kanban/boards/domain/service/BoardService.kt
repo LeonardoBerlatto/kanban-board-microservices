@@ -27,10 +27,27 @@ class BoardService(
         return repository.save(board)
     }
 
-    private fun validateIssues(issues: List<UUID>) {
+    private fun validateIssues(issues: List<UUID>) =
         issues.firstOrNull { !issueService.existById(it) }?.let {
             throw NotFoundException("Issue with id $it not found")
         }
+
+    fun removeIssueFromBoards(issueId: UUID?) {
+        if (issueId == null) {
+            return
+        }
+
+        repository.findAll()
+            .forEach(removeIssueIfApplicable(issueId))
+    }
+
+    private fun removeIssueIfApplicable(issueId: UUID) = forEach@{ board: Board ->
+        if (!board.issues.contains(issueId)) {
+            return@forEach
+        }
+
+        board.issues = board.issues.filter { it != issueId }
+        repository.save(board)
     }
 
 }
