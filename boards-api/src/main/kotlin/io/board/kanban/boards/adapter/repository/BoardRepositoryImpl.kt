@@ -21,4 +21,8 @@ class BoardRepositoryImpl(private val mongoRepository: MongoBoardRepository) : B
     override fun save(board: Board): Board {
         return mongoRepository.save(board)
     }
+
+    override fun findAll(): List<Board> {
+        return mongoRepository.findAll()
+    }
 }
